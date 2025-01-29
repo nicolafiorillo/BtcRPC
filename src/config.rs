@@ -1,7 +1,7 @@
 use crate::std_result::StdResult;
 use ini::Ini;
 
-type Port = u16;
+pub type Port = u16;
 
 #[derive(Debug)]
 pub enum Network {

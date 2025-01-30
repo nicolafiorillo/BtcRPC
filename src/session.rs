@@ -1,4 +1,4 @@
-use crate::config::Port;
+use crate::config::{Config, Port};
 
 #[derive(Debug, Default)]
 pub struct Session {
@@ -7,7 +7,9 @@ pub struct Session {
 }
 
 impl Session {
-    pub fn new(port: Port) -> Self {
+    pub fn new(config: &Config) -> Self {
+        let port = config.network.port();
+
         Self {
             port,
             closed: false,

@@ -4,6 +4,6 @@ use clap::Parser;
 #[command(version, about, long_about = None)]
 pub struct Args {
     /// mainnet | testnet
-    #[arg(short, long, default_value_t = String::from("mainnet"))]
+    #[arg(short, long, default_value_t = String::from("testnet"))]
     pub network: String,
 }

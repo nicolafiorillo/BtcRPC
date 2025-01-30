@@ -18,11 +18,13 @@ async fn main() -> StdResult<()> {
     let args = Args::parse();
 
     let config = Config::load(args.network)?;
-    println!("Bitcoin RPC command line, ver. {}", env!("CARGO_PKG_VERSION"));
-    println!("Network: {:?}", config.network);
-    println!("Node address: {}", config.node_address);
+    println!(
+        "Bitcoin RPC command line, ver. {}",
+        env!("CARGO_PKG_VERSION")
+    );
+    println!("Node: {}:{}", config.address, config.port);
 
-    let mut session = session::Session::new(&config);
+    let mut session = session::Session::new();
     while !session.closed() {
         print!("Command: ");
         let _ = io::stdout().flush();
@@ -33,10 +35,10 @@ async fn main() -> StdResult<()> {
                 session.close();
                 println!("Bye.");
                 break;
-            },
+            }
             Ok(Command::GetBlockchainInfo) => {
                 let blockchain_info = node::get_blockchain_info(&config).await;
-            },
+            }
             Err(err) => println!("Error: {}", err),
         }
     }

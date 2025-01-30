@@ -3,7 +3,7 @@ use crate::std_result::StdResult;
 #[derive(Debug, PartialEq)]
 pub enum Command {
     Exit,
-    GetBlockchainInfo
+    GetBlockchainInfo,
 }
 
 // Get command from console

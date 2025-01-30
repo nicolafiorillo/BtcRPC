@@ -2,13 +2,12 @@ use reqwest::header::{HeaderMap, HeaderValue};
 
 use crate::{config::Config, std_result::StdResult};
 
-pub async fn get_blockchain_info(config: &Config) -> StdResult<()> {
+pub async fn get_blockchain_info(config: &Config) -> StdResult<serde_json::Value> {
     let result = get("getblockchaininfo".to_string(), config).await;
 
     match result {
         Ok(response) => {
-            println!("Response: {:?}", response);
-            Ok(())
+            Ok(response)
         }
         Err(err) => {
             println!("Error: {}", err);
@@ -23,7 +22,7 @@ async fn get(command: String, config: &Config) -> StdResult<serde_json::Value> {
 
     let address = format!("{}:{}", config.address, config.port);
     let message = format!(
-        "{{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"{}\", \"params\": []}}",
+        "{{\"jsonrpc\": \"1.0\", \"id\": \"btcrpc\", \"method\": \"{}\", \"params\": []}}",
         command
     );
 

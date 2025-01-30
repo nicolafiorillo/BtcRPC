@@ -2,7 +2,7 @@ use crate::std_result::StdResult;
 
 #[derive(Debug, PartialEq)]
 pub enum Command {
-    Exit,
+    Quit,
     GetBlockchainInfo,
 }
 
@@ -20,8 +20,8 @@ pub fn translate_command(command: &str) -> StdResult<Command> {
     let normalized_command = command.trim().to_lowercase();
 
     match normalized_command.as_str() {
-        "quit" => Ok(Command::Exit),
-        "q" => Ok(Command::Exit),
+        "quit" => Ok(Command::Quit),
+        "q" => Ok(Command::Quit),
         "getblockchaininfo" => Ok(Command::GetBlockchainInfo),
         _ => Err("invalid command".into()),
     }
@@ -38,9 +38,9 @@ mod command_line_tests {
     }
 
     #[test]
-    fn correct_exit() {
-        let command = translate_command("exit");
-        assert_eq!(command.unwrap(), Command::Exit);
+    fn correct_quit() {
+        let command = translate_command("quit");
+        assert_eq!(command.unwrap(), Command::Quit);
     }
 
     #[test]
@@ -50,8 +50,8 @@ mod command_line_tests {
     }
 
     #[test]
-    fn correct_non_trimmed_exit() {
-        let command = translate_command(" Exit  ");
-        assert_eq!(command.unwrap(), Command::Exit);
+    fn correct_non_trimmed_quit() {
+        let command = translate_command(" Quit  ");
+        assert_eq!(command.unwrap(), Command::Quit);
     }
 }

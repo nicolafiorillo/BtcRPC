@@ -31,13 +31,14 @@ async fn main() -> StdResult<()> {
 
         let user_command = command_line::read_command();
         match command_line::translate_command(&user_command) {
-            Ok(Command::Exit) => {
+            Ok(Command::Quit) => {
                 session.close();
                 println!("Bye.");
                 break;
             }
             Ok(Command::GetBlockchainInfo) => {
-                let blockchain_info = node::get_blockchain_info(&config).await;
+                let blockchain_info = node::get_blockchain_info(&config).await?;
+                println!("{}", blockchain_info);
             }
             Err(err) => println!("Error: {}", err),
         }
